@@ -1,0 +1,73 @@
+***********************************************************************************
+**********            La date : 2020-11-30 15:26:30.676213              **********
+************************************ La requête ***********************************
+SELECT  * 
+ FROM  AGENCES agences
+
+***********************************************************************************
+***********************************************************************************
+**********            La date : 2020-11-30 15:52:09.188070              **********
+************************************ La requête ***********************************
+SELECT  
+      details_commandes.REF_PRODUIT,
+      details_commandes.PRIX_UNITAIRE
+FROM  PRODUITS produits
+  INNER JOIN  DETAILS_COMMANDES details_commandes
+       ON produits.REF_PRODUIT = details_commandes.REF_PRODUIT
+
+***********************************************************************************
+***********************************************************************************
+**********            La date : 2020-11-30 16:27:39.866059              **********
+************************************ La requête ***********************************
+SELECT  
+      produits.REF_PRODUIT,
+      produits.NOM_PRODUIT,
+      produits.CODE_CATEGORIE,
+      produits.NO_FOURNISSEUR
+FROM  PRODUITS produits
+
+***********************************************************************************
+***********************************************************************************
+**********            La date : 2020-12-20 07:42:52.597854              **********
+************************************ La requête ***********************************
+SELECT  * 
+ FROM  VENDEURS vendeurs
+  INNER JOIN  COMMISSIONNEMENTS commissionnements
+       ON vendeurs.NO_VENDEUR = commissionnements.NO_VENDEUR
+  INNER JOIN  AGENCES agences
+       ON vendeurs.NO_AGENCE = agences.NO_AGENCE
+  INNER JOIN  MOUVEMENTS mouvements
+       ON agences.NO_AGENCE = mouvements.NO_ENTREPOT
+  INNER JOIN  ADRESSES adresses
+       ON agences.NO_ADRESSE = adresses.NO_ADRESSE
+  INNER JOIN  COMMANDES commandes
+       ON vendeurs.NO_VENDEUR = commandes.NO_VENDEUR
+  INNER JOIN  FACTURES factures
+       ON commandes.NO_COMMANDE = factures.NO_COMMANDE
+  INNER JOIN  PRODUITS produits
+       ON mouvements.REF_PRODUIT = produits.REF_PRODUIT
+  INNER JOIN  GESTIONS_STOCKS gestions_stocks
+       ON produits.REF_PRODUIT = gestions_stocks.REF_PRODUIT
+  INNER JOIN  STOCKS_ENTREPOTS stocks_entrepots
+       ON agences.NO_AGENCE = stocks_entrepots.NO_ENTREPOT
+  INNER JOIN  COMMISSIONNEMENTS_VENDEURS commissionnements_vendeurs
+       ON vendeurs.NO_VENDEUR = commissionnements_vendeurs.NO_VENDEUR
+
+***********************************************************************************
+***********************************************************************************
+**********            La date : 2020-12-20 10:03:13.834764              **********
+************************************ La requête ***********************************
+SELECT  
+      factures.NO_COMMANDE,
+      factures.REMPLACE,
+      vendeurs.EMAIL,
+      vendeurs.TELEPHONE
+FROM  FACTURES factures
+  INNER JOIN  RELANCES relances
+       ON factures.NO_FACTURE = relances.NO_FACTURE
+  INNER JOIN  COMMANDES commandes
+       ON factures.NO_COMMANDE = commandes.NO_COMMANDE
+  INNER JOIN  VENDEURS vendeurs
+       ON commandes.NO_VENDEUR = vendeurs.NO_VENDEUR
+
+***********************************************************************************
